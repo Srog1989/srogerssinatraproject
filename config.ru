@@ -7,4 +7,5 @@ end
 run ApplicationController
 use UsersController
 use MedicinesController
+use Rack::MethodOverride
 
