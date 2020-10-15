@@ -1,6 +1,26 @@
 class UsersController < ApplicationController
 
- # GET: /users
+    get '/signup' do
+        if logged_in?
+            redirect to '/medicines'
+        else 
+            erb :'users/signup'
+        end 
+    end 
+
+    post '/signup' do
+        erb :'users/login'
+    end
+
+
+    get "/login" do
+        erb :"users/login"
+    end
+
+    # post "/login" do 
+
+    # end
+#  # GET: /users
  get "/users" do
     erb :"/users/index.html"
   end
