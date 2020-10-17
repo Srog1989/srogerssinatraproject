@@ -4,23 +4,35 @@ class MedicinesController < ApplicationController
   
  # GET: /medicines
  get "/medicines" do
-    erb :"/medicines/index.html"
+    if logged_in?
+       @user = User.find_by(session[:user_id])
+       @medicines = @user.medicines.all
+        erb :"/medicines/index"
+    else
+        redirect '/login'
   end
+end
   # GET: /medicines/new
   get "/medicines/new" do
-    erb :"/medicines/new.html"
+
+
+    erb :"/medicines/new"
   end
+
   # POST: /medicines
   post "/medicines" do
-    redirect "/medicines"
+    user = User.find_by(session[:user_id])
+    @medicine = user.medicines.create(params)
+    redirect "/medicines/#{@medicine.id}"
   end
   # GET: /medicines/5
   get "/medicines/:id" do
-    erb :"/umedicines/show.html"
+    @medicine = Medicine.find_by_id(params[:id])
+    erb :"/medicines/show"
   end
   # GET: /medicines/5/edit
   get "/medicines/:id/edit" do
-    erb :"/medicines/edit.html"
+    erb :"/medicines/edit"
   end
   # PATCH: /medicines/5
   patch "/medicines/:id" do
@@ -28,7 +40,9 @@ class MedicinesController < ApplicationController
   end
   # DELETE: /medicines/5/delete
   delete "/medicines/:id/delete" do
-    redirect "/medicines"
+    @medicine = Medicine.find_by_id(params[:id])
+    @medicine.destroy
+    redirect "/users/medicines"
   end
 
     

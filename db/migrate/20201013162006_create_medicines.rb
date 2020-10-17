@@ -3,7 +3,8 @@ class CreateMedicines < ActiveRecord::Migration
     create_table :medicines do |t|
       t.string :user_id
       t.string :name
-      t.integer :recommended_usage
+      t.integer :dose
+      t.string :frequency
     end
   end
 end
